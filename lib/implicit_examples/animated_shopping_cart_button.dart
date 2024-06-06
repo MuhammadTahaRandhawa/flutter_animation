@@ -1,7 +1,14 @@
 import 'package:flutter/material.dart';
 
-class ShoppingCartButton extends StatelessWidget {
+class ShoppingCartButton extends StatefulWidget {
   const ShoppingCartButton({super.key});
+
+  @override
+  State<ShoppingCartButton> createState() => _ShoppingCartButtonState();
+}
+
+class _ShoppingCartButtonState extends State<ShoppingCartButton> {
+  bool _isExpended = false;
 
   @override
   Widget build(BuildContext context) {
@@ -10,16 +17,38 @@ class ShoppingCartButton extends StatelessWidget {
         title: const Text('Shopping Cart'),
       ),
       body: Center(
-        child: Container(
-          width: 80.0,
-          height: 60.0,
-          decoration: BoxDecoration(
-            color: Colors.blue,
-            borderRadius: BorderRadius.circular(10.0),
-          ),
-          child: const Icon(
-            Icons.shopping_cart,
-            color: Colors.white,
+        child: GestureDetector(
+          onTap: () {
+            setState(() {
+              _isExpended = !_isExpended;
+            });
+          },
+          child: AnimatedContainer(
+            clipBehavior: Clip.hardEdge,
+            width: _isExpended ? 200 : 80.0,
+            height: 60.0,
+            decoration: BoxDecoration(
+              color: _isExpended ? Colors.green : Colors.blue,
+              borderRadius: _isExpended
+                  ? BorderRadius.circular(30.0)
+                  : BorderRadius.circular(10.0),
+            ),
+            duration: const Duration(seconds: 1),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                const Icon(
+                  Icons.shopping_cart,
+                  color: Colors.white,
+                ),
+                if (_isExpended)
+                  const Text(
+                    'Added To Cart!',
+                    overflow: TextOverflow.clip,
+                    style: TextStyle(color: Colors.white),
+                  )
+              ],
+            ),
           ),
         ),
       ),
