@@ -24,7 +24,6 @@ class _ShoppingCartButtonState extends State<ShoppingCartButton> {
             });
           },
           child: AnimatedContainer(
-            clipBehavior: Clip.hardEdge,
             width: _isExpended ? 200 : 80.0,
             height: 60.0,
             decoration: BoxDecoration(
@@ -44,7 +43,6 @@ class _ShoppingCartButtonState extends State<ShoppingCartButton> {
                 if (_isExpended)
                   const Text(
                     'Added To Cart!',
-                    overflow: TextOverflow.clip,
                     style: TextStyle(color: Colors.white),
                   )
               ],
